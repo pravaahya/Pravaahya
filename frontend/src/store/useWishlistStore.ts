@@ -27,9 +27,9 @@ export const useWishlistStore = create<WishlistStore>()(
         }));
       },
       toggleItem: (product) => {
-        const exists = get().isInWishlist(product.id);
+        const exists = get().isInWishlist(product.id!);
         if (exists) {
-           get().removeItem(product.id);
+           get().removeItem(product.id!);
         } else {
            get().addItem(product);
         }

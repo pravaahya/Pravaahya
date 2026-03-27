@@ -57,7 +57,7 @@ export function ProductDetailClient({ id }: { id: string }) {
   useEffect(() => {
     setMounted(true);
     if (product) {
-       setIsWishlisted(isInWishlist(product.id));
+       setIsWishlisted(isInWishlist(product.id!));
        addRecentlyViewed(product);
     }
   }, [product, isInWishlist, addRecentlyViewed]);

@@ -6,7 +6,9 @@ const mockProducts: Product[] = Array.from({ length: 20 }).map((_, i) => ({
   description: "Eco-friendly, sourced locally and built to last without harming the planet.",
   price: 29.99 + (i * 2),
   category: "Home",
-  imageUrl: "" // Assuming SVG fallback is handled by the UI
+  stock: 100,
+  tags: ["eco-friendly"],
+  images: [] // Assuming SVG fallback is handled by the UI
 }));
 
 export async function fetchProducts(page: number, limit: number = 5): Promise<{ data: Product[], hasMore: boolean }> {

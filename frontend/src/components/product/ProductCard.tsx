@@ -20,7 +20,7 @@ export function ProductCard({ product }: { product: Product }) {
 
   useEffect(() => {
     setMounted(true);
-    setIsWishlisted(isInWishlist(product.id));
+    setIsWishlisted(isInWishlist(product.id!));
   }, [isInWishlist, product.id]);
 
   const handleWishlistToggle = (e: React.MouseEvent) => {

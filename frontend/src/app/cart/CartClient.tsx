@@ -78,7 +78,7 @@ export function CartClient() {
                     <div className="flex items-center justify-between mt-auto">
                       <div className="flex items-center gap-3 bg-eco-50 p-1 rounded-full border border-eco-200">
                         <button 
-                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          onClick={() => updateQuantity(item.id!, item.quantity - 1)}
                           className="w-8 h-8 flex flex-col items-center justify-center bg-white rounded-full text-eco-600 shadow-sm hover:text-eco-900 hover:bg-eco-100 transition-all font-bold disabled:opacity-50"
                           disabled={item.quantity <= 1}
                         >
@@ -86,7 +86,7 @@ export function CartClient() {
                         </button>
                         <span className="text-sm font-semibold w-4 text-center text-eco-900">{item.quantity}</span>
                         <button 
-                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          onClick={() => updateQuantity(item.id!, item.quantity + 1)}
                           className="w-8 h-8 flex flex-col items-center justify-center bg-white rounded-full text-eco-600 shadow-sm hover:text-eco-900 hover:bg-eco-100 transition-all font-bold"
                         >
                           <Plus className="w-3.5 h-3.5" />
@@ -94,7 +94,7 @@ export function CartClient() {
                       </div>
                       
                       <button 
-                        onClick={() => removeItem(item.id)}
+                        onClick={() => removeItem(item.id!)}
                         className="flex items-center text-sm font-medium text-red-500 hover:text-red-700 transition-colors p-2"
                       >
                         <Trash2 className="w-4 h-4 sm:mr-1" />

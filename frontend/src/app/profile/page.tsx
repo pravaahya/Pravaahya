@@ -13,8 +13,7 @@ export default function Profile() {
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        const token =
-    sessionStorage.removeItem("pravaahya_token");
+        const token = sessionStorage.getItem("pravaahya_token");
         if (!token) {
            window.location.href = '/login';
            return;
@@ -47,8 +46,7 @@ export default function Profile() {
 
   const updateName = async (e: React.FormEvent) => {
     e.preventDefault();
-    const token =
-    sessionStorage.removeItem("pravaahya_token");
+    const token = sessionStorage.getItem("pravaahya_token");
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"}/user/profile`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
@@ -62,8 +60,7 @@ export default function Profile() {
 
   const updatePhone = async (e: React.FormEvent) => {
     e.preventDefault();
-    const token =
-    sessionStorage.removeItem("pravaahya_token");
+    const token = sessionStorage.getItem("pravaahya_token");
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"}/user/profile`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
@@ -76,8 +73,7 @@ export default function Profile() {
   };
 
   const downloadInvoice = async (id: string) => {
-    const token =
-    sessionStorage.removeItem("pravaahya_token");
+    const token = sessionStorage.getItem("pravaahya_token");
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"}/orders/${id}/invoice`, { headers: { Authorization: `Bearer ${token}` } });
     if (res.ok) {
        const blob = await res.blob();
