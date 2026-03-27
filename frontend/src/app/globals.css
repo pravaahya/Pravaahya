@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@theme {
+  --color-eco-50: #f2f7f2;
+  --color-eco-100: #e0eee0;
+  --color-eco-200: #c2dfc2;
+  --color-eco-300: #9bc79b;
+  --color-eco-400: #71ab71;
+  --color-eco-500: #4e8e4e;
+  --color-eco-600: #3c713c;
+  --color-eco-700: #325a32;
+  --color-eco-800: #2a482a;
+  --color-eco-900: #233c23;
+
+  --color-earth-50: #fbf9f6;
+  --color-earth-100: #f4eee2;
+  --color-earth-200: #ead9c3;
+  --color-earth-300: #dec0a0;
+  --color-earth-400: #d4a373;
+  --color-earth-500: #c3864d;
+  --color-earth-600: #a76b3c;
+  --color-earth-700: #8a5333;
+  --color-earth-800: #71462d;
+  --color-earth-900: #5c3a27;
+
+  --color-primary: var(--color-eco-600);
+  --color-primary-foreground: #ffffff;
+  
+  --color-secondary: var(--color-earth-200);
+  --color-secondary-foreground: var(--color-earth-900);
+
+  --color-accent: var(--color-earth-400);
+  --color-accent-foreground: #ffffff;
+
+  --color-background: #fcfcfc;
+  --color-foreground: #1a2219;
+
+  --color-card: #ffffff;
+  --color-card-foreground: #1a2219;
+
+  --color-border: var(--color-eco-200);
+  --color-input: var(--color-eco-200);
+  --color-ring: var(--color-eco-500);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-lg: 1rem;
+  --radius-md: 0.75rem;
+  --radius-sm: 0.5rem;
+  --radius-xl: 1.5rem;
+}
+
+@utility font-heading {
+  font-family: var(--font-heading);
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-border);
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    @apply antialiased;
+  }
+}

@@ -1,0 +1,94 @@
+﻿node.exe : C:\Users\De
+ll\OneDrive\Desktop\St
+artup\Pravaahya\Websit
+e\backend\node_modules
+\ts-node\src\index.ts:
+859
+At line:1 char:1
++ & "C:\Program Files\
+nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo 
+...
++ ~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~
+    + CategoryInfo    
+          : NotSpeci  
+  fied: (C:\Users\D   
+ ell\O...rc\index.    
+ts:859:String) []    
+, RemoteException
+    + FullyQualifiedE 
+   rrorId : NativeCo  
+  mmandError
+ 
+    return new TSError
+(diagnosticText, 
+diagnosticCodes, 
+diagnostics);
+           ^
+TSError: Γ¿» Unable 
+to compile TypeScript:
+src/routes/admin.route
+s.ts(50,109): error 
+TS2339: Property 
+'message' does not 
+exist on type '{}'.
+
+    at createTSError (
+C:\Users\Dell\OneDrive
+\Desktop\Startup\Prava
+ahya\Website\backend\n
+ode_modules\ts-node\sr
+c\index.ts:859:12)
+    at reportTSError (
+C:\Users\Dell\OneDrive
+\Desktop\Startup\Prava
+ahya\Website\backend\n
+ode_modules\ts-node\sr
+c\index.ts:863:19)
+    at getOutput (C:\U
+sers\Dell\OneDrive\Des
+ktop\Startup\Pravaahya
+\Website\backend\node_
+modules\ts-node\src\in
+dex.ts:1077:36)
+    at Object.compile 
+(C:\Users\Dell\OneDriv
+e\Desktop\Startup\Prav
+aahya\Website\backend\
+node_modules\ts-node\s
+rc\index.ts:1433:41)
+    at 
+Module.m._compile (C:\
+Users\Dell\OneDrive\De
+sktop\Startup\Pravaahy
+a\Website\backend\node
+_modules\ts-node\src\i
+ndex.ts:1617:30)
+    at node:internal/m
+odules/cjs/loader:1893
+:10
+    at Object.require.
+extensions.<computed> 
+[as .ts] (C:\Users\Del
+l\OneDrive\Desktop\Sta
+rtup\Pravaahya\Website
+\backend\node_modules\
+ts-node\src\index.ts:1
+621:12)
+    at Module.load (no
+de:internal/modules/cj
+s/loader:1481:32)
+    at Module._load (n
+ode:internal/modules/c
+js/loader:1300:12)
+    at TracingChannel.
+traceSync (node:diagno
+stics_channel:328:14) 
+{
+  diagnosticCodes: [ 
+2339 ]
+}
