@@ -14,7 +14,14 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(helmet({ crossOriginResourcePolicy: false })); // Permitting cross-origin fetching for public image directory dynamically
-app.use(cors());
+app.use(cors({
+  origin: [
+    'https://pravaahya.com',
+    'https://www.pravaahya.com',
+    'http://localhost:3000'
+  ],
+  credentials: true
+}));
 app.use(express.json());
 
 // Serve static dynamic product imagery structurally tracking local disks
