@@ -24,7 +24,7 @@ export function Footer() {
     company: [
       { name: "Shop All", href: "/collections" },
       { name: "About Us", href: "/about" },
-      { name: "Journal", href: "/journal" },
+      { name: "Blog", href: "/blog" },
     ],
     policies: [
       { name: "Privacy Policy", href: "/privacy" },
