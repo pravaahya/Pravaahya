@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Lock, User } from "lucide-react";
+import { fetchApi } from "@/lib/api";
 
 export default function AdminLogin() {
   const router = useRouter();
@@ -17,8 +18,7 @@ export default function AdminLogin() {
     setLoading(true);
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
-      const res = await fetch(`${apiUrl}/auth/admin-login`, {
+      const res = await fetchApi('/auth/admin-login', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password })

@@ -6,6 +6,7 @@ import { fetchProducts } from "@/services/product.service";
 import { ProductCard } from "@/components/product/ProductCard";
 import { Loader2 } from "lucide-react";
 import { cn } from "@/utils/cn";
+import { fetchApi } from "@/lib/api";
 
 export function ProductCarousel({ title }: { title: string }) {
   const [products, setProducts] = useState<Product[]>([]);
@@ -37,8 +38,7 @@ export function ProductCarousel({ title }: { title: string }) {
     const loadFeaturedProducts = async () => {
       setLoading(true);
       try {
-        const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
-        const res = await fetch(`${baseUrl}/products?featured=true&limit=4`);
+        const res = await fetchApi('/products?featured=true&limit=4');
         if (res.ok) {
            const json = await res.json();
            if (json.success) {

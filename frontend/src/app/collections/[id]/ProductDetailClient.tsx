@@ -12,16 +12,8 @@ import { useCartStore } from "@/store/useCartStore";
 import { useWishlistStore } from "@/store/useWishlistStore";
 import { useRecentlyViewedStore } from "@/store/useRecentlyViewedStore";
 import { toast } from "sonner";
+import { resolveImage } from "@/lib/image-utils";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
-const BASE_URL = API_URL.replace('/api', '');
-
-const resolveImage = (url: string) => {
-  if (!url) return "";
-  if (url.startsWith("http")) return url;
-  if (url.startsWith("data:")) return url;
-  return `${BASE_URL}${url.startsWith("/") ? "" : "/"}${url}`;
-};
 
 export function ProductDetailClient({ id }: { id: string }) {
   const router = useRouter();

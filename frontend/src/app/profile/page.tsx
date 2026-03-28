@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { Pencil } from 'lucide-react';
+import { fetchApi } from '@/lib/api';
 
 export default function Profile() {
   const [profile, setProfile] = useState<any>({});
@@ -19,9 +20,7 @@ export default function Profile() {
            return;
         }
         
-        const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
-        
-        const profileRes = await fetch(`${baseUrl}/user/profile`, { headers: { Authorization: `Bearer ${token}` } });
+        const profileRes = await fetchApi('/user/profile', { headers: { Authorization: `Bearer ${token}` } });
         if (profileRes.ok) {
            const profileData = await profileRes.json();
            if (profileData.success) {
@@ -31,7 +30,7 @@ export default function Profile() {
            }
         }
 
-        const ordersRes = await fetch(`${baseUrl}/user/orders`, { headers: { Authorization: `Bearer ${token}` } });
+        const ordersRes = await fetchApi('/user/orders', { headers: { Authorization: `Bearer ${token}` } });
         if (ordersRes.ok) {
            const ordersData = await ordersRes.json();
            if (ordersData.success) setOrders(ordersData.data);
@@ -47,9 +46,9 @@ export default function Profile() {
   const updateName = async (e: React.FormEvent) => {
     e.preventDefault();
     const token = sessionStorage.getItem("pravaahya_token");
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"}/user/profile`, {
+    const res = await fetchApi('/user/profile', {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Bearer ${token}` },
       body: JSON.stringify({ name, phone: profile.phone })
     });
     const data = await res.json();
@@ -61,9 +60,9 @@ export default function Profile() {
   const updatePhone = async (e: React.FormEvent) => {
     e.preventDefault();
     const token = sessionStorage.getItem("pravaahya_token");
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"}/user/profile`, {
+    const res = await fetchApi('/user/profile', {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Bearer ${token}` },
       body: JSON.stringify({ name: profile.name, phone })
     });
     const data = await res.json();
@@ -74,7 +73,7 @@ export default function Profile() {
 
   const downloadInvoice = async (id: string) => {
     const token = sessionStorage.getItem("pravaahya_token");
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"}/orders/${id}/invoice`, { headers: { Authorization: `Bearer ${token}` } });
+    const res = await fetchApi(`/orders/${id}/invoice`, { headers: { Authorization: `Bearer ${token}` } });
     if (res.ok) {
        const blob = await res.blob();
        const url = window.URL.createObjectURL(blob);

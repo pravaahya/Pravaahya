@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+import { fetchApi } from '@/lib/api';
 
 export default function AdminUsers() {
   const [users, setUsers] = useState<any[]>([]);
@@ -7,7 +8,7 @@ export default function AdminUsers() {
 
   useEffect(() => {
     const token = sessionStorage.getItem("pravaahya_token");
-    fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"}/admin/users`, { headers: { Authorization: `Bearer ${token}` } })
+    fetchApi('/admin/users', { headers: { Authorization: `Bearer ${token}` } })
       .then(res => res.json())
       .then(data => {
         if(data.success) setUsers(data.data);
@@ -16,7 +17,7 @@ export default function AdminUsers() {
 
   const viewDetails = async (id: string) => {
     const token = sessionStorage.getItem("pravaahya_token");
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"}/admin/users/${id}`, { headers: { Authorization: `Bearer ${token}` } });
+    const res = await fetchApi(`/admin/users/${id}`, { headers: { Authorization: `Bearer ${token}` } });
     const data = await res.json();
     if(data.success) setSelectedUser(data.data);
   };

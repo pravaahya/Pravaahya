@@ -11,6 +11,7 @@ import { cn } from "@/utils/cn";
 import { useDebounce } from "@/hooks/useDebounce";
 import { Product } from "@/types/product";
 import { resolveImage } from "@/lib/image-utils";
+import { fetchApi } from "@/lib/api";
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -45,9 +46,8 @@ export function Header() {
     fetchCols();
 
     const fetchPromo = async () => {
-       try {
-           const resUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
-           const res = await fetch(`${resUrl}/coupons/featured`);
+        try {
+           const res = await fetchApi('/coupons/featured');
            if (res.ok) {
               const json = await res.json();
               if (json.success && json.data) {
