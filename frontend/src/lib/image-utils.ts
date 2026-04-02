@@ -5,7 +5,7 @@ export const resolveImage = (url: string | undefined | null) => {
   if (url.startsWith("http")) return url;
   if (url.startsWith("data:")) return url;
   
-  const baseApi = API_URL || "http://localhost:5000/api";
+  const baseApi = API_URL;
   const BASE_URL = baseApi.replace('/api', '');
   
   return `${BASE_URL}${url.startsWith("/") ? "" : "/"}${url}`;

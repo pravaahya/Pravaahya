@@ -38,8 +38,8 @@ export default function AdminCollections() {
       if (!token) { router.push("/admin/login"); return; }
       
       const [colRes, prodRes] = await Promise.all([
-         fetch("http://127.0.0.1:5000/api/collections", { headers: { Authorization: `Bearer ${token}` } }),
-         fetch("http://127.0.0.1:5000/api/products", { headers: { Authorization: `Bearer ${token}` } })
+         fetch("https://pravaahya.com/api/collections", { headers: { Authorization: `Bearer ${token}` } }),
+         fetch("https://pravaahya.com/api/products", { headers: { Authorization: `Bearer ${token}` } })
       ]);
       
       const colJson = await colRes.json();
@@ -98,8 +98,8 @@ export default function AdminCollections() {
     try {
       const token = sessionStorage.getItem("pravaahya_token");
       const url = editingId 
-        ? `http://127.0.0.1:5000/api/collections/${editingId}`
-        : "http://127.0.0.1:5000/api/collections";
+        ? `https://pravaahya.com/api/collections/${editingId}`
+        : "https://pravaahya.com/api/collections";
       const method = editingId ? "PUT" : "POST";
 
       const payload = new FormData();
@@ -130,7 +130,7 @@ export default function AdminCollections() {
     if (!window.confirm("Are you sure you want to delete this collection? This action cannot be undone.")) return;
     try {
       const token = sessionStorage.getItem("pravaahya_token");
-      const res = await fetch(`http://127.0.0.1:5000/api/collections/${id}`, {
+      const res = await fetch(`https://pravaahya.com/api/collections/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` }
       });

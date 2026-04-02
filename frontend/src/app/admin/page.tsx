@@ -36,7 +36,7 @@ export default function AdminDashboard() {
     }
 
     // Fetch analytical aggregates uniquely mapping to authenticated headers securely
-    fetch("http://127.0.0.1:5000/api/admin/insights", {
+    fetch("https://pravaahya.com/api/admin/insights", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(async (res) => {

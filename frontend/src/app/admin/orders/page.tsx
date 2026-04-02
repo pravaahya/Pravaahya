@@ -44,7 +44,7 @@ export default function AdminOrders() {
       const token = sessionStorage.getItem("pravaahya_token");
       if (!token) { router.push("/admin/login"); return; }
       
-      const res = await fetch("http://127.0.0.1:5000/api/orders", {
+      const res = await fetch("https://pravaahya.com/api/orders", {
         headers: { Authorization: `Bearer ${token}` }
       });
       const json = await res.json();
@@ -72,7 +72,7 @@ export default function AdminOrders() {
     try {
       const token = sessionStorage.getItem("pravaahya_token");
       if (!token) { router.push("/admin/login"); return; } // Added token check
-      const res = await fetch(`http://127.0.0.1:5000/api/orders/${id}`, {
+      const res = await fetch(`https://pravaahya.com/api/orders/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -186,10 +186,10 @@ export default function AdminOrders() {
                          </button>
                          {!isUnpaid ? (
                             <div className="flex flex-col gap-2 mt-3 w-max">
-                               <a href={`http://127.0.0.1:5000/api/orders/${order._id}/invoice`} target="_blank" rel="noopener noreferrer" className="inline-block text-[10px] text-center font-bold text-blue-600 hover:text-blue-800 uppercase tracking-widest border border-blue-200 bg-blue-50 hover:bg-blue-100 px-3 py-1 rounded-full transition-colors">
+                               <a href={`https://pravaahya.com/api/orders/${order._id}/invoice`} target="_blank" rel="noopener noreferrer" className="inline-block text-[10px] text-center font-bold text-blue-600 hover:text-blue-800 uppercase tracking-widest border border-blue-200 bg-blue-50 hover:bg-blue-100 px-3 py-1 rounded-full transition-colors">
                                   View Invoice
                                </a>
-                               <a href={`http://127.0.0.1:5000/api/orders/${order._id}/invoice?download=true`} className="inline-block text-[10px] text-center font-bold text-green-600 hover:text-green-800 uppercase tracking-widest border border-green-200 bg-green-50 hover:bg-green-100 px-3 py-1 rounded-full transition-colors">
+                               <a href={`https://pravaahya.com/api/orders/${order._id}/invoice?download=true`} className="inline-block text-[10px] text-center font-bold text-green-600 hover:text-green-800 uppercase tracking-widest border border-green-200 bg-green-50 hover:bg-green-100 px-3 py-1 rounded-full transition-colors">
                                   Download Invoice
                                </a>
                             </div>

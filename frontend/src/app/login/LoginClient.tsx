@@ -24,7 +24,7 @@ export function LoginClient() {
     
     setLoading(true);
     try {
-      const res = await fetch(`http://127.0.0.1:5000/api/auth/send-otp`, {
+      const res = await fetch(`https://pravaahya.com/api/auth/send-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ phone }),
@@ -52,7 +52,7 @@ export function LoginClient() {
     
     setLoading(true);
     try {
-      const res = await fetch(`http://127.0.0.1:5000/api/auth/verify-otp`, {
+      const res = await fetch(`https://pravaahya.com/api/auth/verify-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ phone, otp }),

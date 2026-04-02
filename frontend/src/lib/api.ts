@@ -2,18 +2,40 @@
  * Centralized API configuration and fetch wrapper
  */
 
-export const API_URL = process.env.NEXT_PUBLIC_API_URL;
+export const getBaseUrl = (): string => {
+  let base = process.env.NEXT_PUBLIC_API_URL;
 
-if (!API_URL && typeof window !== "undefined") {
-  console.error("CRITICAL ERROR: 'NEXT_PUBLIC_API_URL' environment variable is missing in production. API requests are expected to critically fail.");
-}
+  if (!base) {
+    if (process.env.NODE_ENV === "production") {
+      console.error("CRITICAL ERROR: 'NEXT_PUBLIC_API_URL' environment variable is missing in production. API requests are expected to critically fail.");
+      // Fallback for Vercel production
+      base = "https://pravaahya.com/api";
+    } else {
+      // Development
+      if (typeof window !== "undefined") {
+        const hostname = window.location.hostname;
+        if (hostname === "localhost" || hostname === "127.0.0.1") {
+          base = "https://pravaahya.com/api";
+        } else {
+          base = "https://pravaahya.com/api";
+        }
+      } else {
+        base = "https://pravaahya.com/api";
+      }
+    }
+  }
+
+  // Ensure no trailing slash
+  return base.endsWith("/") ? base.slice(0, -1) : base;
+};
+
+export const API_URL = getBaseUrl();
 
 /**
  * Returns the fully qualified URL for an API endpoint.
- * Defaults to localhost:5000/api in local dev environments if unconfigured.
  */
 export const getApiUrl = (endpoint: string) => {
-  const base = API_URL || 'http://localhost:5000/api';
+  const base = API_URL;
   return `${base}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
 };
 

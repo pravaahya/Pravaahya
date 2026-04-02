@@ -27,7 +27,7 @@ export default function AdminAnalytics() {
     const token = sessionStorage.getItem("pravaahya_token");
     if (!token) { router.push("/admin/login"); return; }
 
-    fetch("http://127.0.0.1:5000/api/analytics/summary", {
+    fetch("https://pravaahya.com/api/analytics/summary", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(async (res) => {

@@ -21,7 +21,7 @@ export async function GET(request: Request) {
   try {
     if (collectionId) {
        // Fetch explicitly from the matched Collection hash
-       const colRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:5000/api"}/collections/${collectionId}`, { cache: 'no-store' });
+       const colRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://pravaahya.com/api"}/collections/${collectionId}`, { cache: 'no-store' });
        const colJson = await colRes.json();
        if (colJson.success && colJson.data && Array.isArray(colJson.data.products)) {
            filtered = colJson.data.products.map((p: any) => ({
@@ -30,7 +30,7 @@ export async function GET(request: Request) {
        }
     } else {
        // Global Catalog Fetch
-       const backendRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:5000/api"}/products`, { cache: 'no-store' });
+       const backendRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://pravaahya.com/api"}/products`, { cache: 'no-store' });
        const backendJson = await backendRes.json();
        if (backendJson.success && Array.isArray(backendJson.data)) {
            filtered = backendJson.data.map((p: any) => ({

@@ -7,7 +7,7 @@ export function LowStockAlert({ token }: { token: string }) {
 
     useEffect(() => {
         if (!token) return;
-        fetch("http://127.0.0.1:5000/api/products/stocks/low", {
+        fetch("https://pravaahya.com/api/products/stocks/low", {
             headers: { Authorization: `Bearer ${token}` }
         })
         .then(res => {

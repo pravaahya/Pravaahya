@@ -35,7 +35,7 @@ export default function AdminCoupons() {
       const token = sessionStorage.getItem("pravaahya_token");
       if (!token) { router.push("/admin/login"); return; }
       
-      const res = await fetch("http://127.0.0.1:5000/api/coupons", {
+      const res = await fetch("https://pravaahya.com/api/coupons", {
         headers: { Authorization: `Bearer ${token}` }
       });
       const json = await res.json();
@@ -94,8 +94,8 @@ export default function AdminCoupons() {
     try {
       const token = sessionStorage.getItem("pravaahya_token");
       const url = editingId 
-        ? `http://127.0.0.1:5000/api/coupons/${editingId}`
-        : "http://127.0.0.1:5000/api/coupons";
+        ? `https://pravaahya.com/api/coupons/${editingId}`
+        : "https://pravaahya.com/api/coupons";
       const method = editingId ? "PUT" : "POST";
 
       const res = await fetch(url, {
@@ -122,7 +122,7 @@ export default function AdminCoupons() {
     
     try {
       const token = sessionStorage.getItem("pravaahya_token");
-      const res = await fetch(`http://127.0.0.1:5000/api/coupons/${id}`, {
+      const res = await fetch(`https://pravaahya.com/api/coupons/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` }
       });
