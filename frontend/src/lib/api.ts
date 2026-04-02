@@ -6,22 +6,20 @@ export const getBaseUrl = (): string => {
   let base = process.env.NEXT_PUBLIC_API_URL;
 
   if (!base) {
-    if (process.env.NODE_ENV === "production") {
-      console.error("CRITICAL ERROR: 'NEXT_PUBLIC_API_URL' environment variable is missing in production. API requests are expected to critically fail.");
-      // Fallback for Vercel production
-      base = "https://pravaahya.com/api";
-    } else {
-      // Development
-      if (typeof window !== "undefined") {
-        const hostname = window.location.hostname;
-        if (hostname === "localhost" || hostname === "127.0.0.1") {
-          base = "https://pravaahya.com/api";
-        } else {
-          base = "https://pravaahya.com/api";
-        }
+    if (typeof window !== "undefined") {
+      const hostname = window.location.hostname;
+      if (hostname === "localhost" || hostname === "127.0.0.1") {
+        base = "http://localhost:5000/api";
       } else {
         base = "https://pravaahya.com/api";
       }
+    } else {
+      // Server-side
+      base = process.env.NODE_ENV === "production" ? "https://pravaahya.com/api" : "http://localhost:5000/api";
+    }
+
+    if (process.env.NODE_ENV === "production" && base === "https://pravaahya.com/api") {
+      console.error("CRITICAL ERROR: 'NEXT_PUBLIC_API_URL' environment variable is missing in production. Falling back to default URL.");
     }
   }
 

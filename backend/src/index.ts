@@ -38,17 +38,19 @@ app.get('/admin', (req, res) => {
   res.redirect('http://localhost:3000/admin/login');
 });
 
-app.listen(PORT, () => {
-   console.log(`Server successfully secured and running dynamically on native port ${PORT}`);
-   
-   // Formulate independent automated Cron jobs executing entirely decoupled from router proxy
-   startStockAlertCron(); 
-});
+if (process.env.NODE_ENV !== "production" && process.env.VERCEL !== "1") {
+   app.listen(PORT, () => {
+      console.log(`Server successfully secured and running dynamically on native port ${PORT}`);
+      
+      // Formulate independent automated Cron jobs executing entirely decoupled from router proxy
+      startStockAlertCron(); 
+   });
+}
 
 connectDB().catch((err) => {
    console.error("FATAL: MongoDB connection rejected organically.", err);
 });
 
-// Force clean nodemon restart explicitly bridging network timeouts smartly cleanly securely
-// Second forced restart successfully capturing Active 0.0.0.0 bounds naturally cleanly
-// Third forced restart executed via Antigravity to autonomously reboot port 5000 gracefully.
+// Vercel Serverless Function Export Hook
+module.exports = app;
+export default app;

@@ -24,12 +24,13 @@ export default function AdminLogin() {
         body: JSON.stringify({ username, password })
       });
       
-      const contentType = res.headers.get("content-type");
-      if (!contentType || !contentType.includes("application/json")) {
-         throw new Error(`Network Error [${res.status}]: Server did not return valid JSON. Ensure your Backend server is deployed and NEXT_PUBLIC_API_URL is accurately pointing to it rather than the frontend domain.`);
+      const text = await res.text();
+      let data;
+      try {
+         data = JSON.parse(text);
+      } catch (parseError) {
+         throw new Error(`Network Error [${res.status}]: Server returned an invalid HTML or non-JSON response. Ensure your backend server is running and NEXT_PUBLIC_API_URL is correctly pointed to it.`);
       }
-
-      const data = await res.json();
       
       if (!res.ok) throw new Error(data.error || "Authentication Signature Failure.");
 
