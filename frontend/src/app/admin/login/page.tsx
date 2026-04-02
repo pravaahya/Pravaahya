@@ -23,6 +23,12 @@ export default function AdminLogin() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password })
       });
+      
+      const contentType = res.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+         throw new Error(`Network Error [${res.status}]: Server did not return valid JSON. Ensure your Backend server is deployed and NEXT_PUBLIC_API_URL is accurately pointing to it rather than the frontend domain.`);
+      }
+
       const data = await res.json();
       
       if (!res.ok) throw new Error(data.error || "Authentication Signature Failure.");

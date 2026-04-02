@@ -30,6 +30,11 @@ export function LoginClient() {
         body: JSON.stringify({ phone }),
       });
       
+      const contentType = res.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+         throw new Error(`Network Error [${res.status}]: Missing Backend. Ensure your Node.js backend is active.`);
+      }
+
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Network pipeline faltered.");
       
@@ -58,6 +63,11 @@ export function LoginClient() {
         body: JSON.stringify({ phone, otp }),
       });
       
+      const contentType = res.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+         throw new Error(`Network Error [${res.status}]: Missing Backend.`);
+      }
+
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Decryption signature falsified.");
       
