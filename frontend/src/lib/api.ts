@@ -8,8 +8,12 @@ export const getBaseUrl = (): string => {
   if (!base) {
     if (typeof window !== "undefined") {
       const hostname = window.location.hostname;
-      if (hostname === "localhost" || hostname === "127.0.0.1") {
-        base = "http://localhost:5000/api";
+      const isLocalNetwork = (h: string) => {
+        return h === "localhost" || h === "127.0.0.1" || h.startsWith("192.168.") || h.startsWith("10.") || h.startsWith("172.");
+      };
+
+      if (isLocalNetwork(hostname)) {
+        base = `http://${hostname}:5000/api`;
       } else {
         base = "https://pravaahya.com/api";
       }
