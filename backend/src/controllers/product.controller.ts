@@ -19,8 +19,10 @@ export const createProduct = async (req: Request, res: Response): Promise<void> 
      const imageFiles = req.files as Express.Multer.File[];
      let images: string[] = [];
      if (imageFiles && imageFiles.length > 0) {
-         const baseUrl = `${req.protocol}://${req.get('host')}`;
-         images = imageFiles.map(file => `${baseUrl}/uploads/${file.filename}`);
+         images = imageFiles.map(file => {
+             const base64 = file.buffer.toString('base64');
+             return `data:${file.mimetype};base64,${base64}`;
+         });
      }
 
      if (images.length === 0) {
@@ -99,8 +101,10 @@ export const updateProduct = async (req: Request, res: Response): Promise<void> 
      
      const imageFiles = req.files as Express.Multer.File[];
      if (imageFiles && imageFiles.length > 0) {
-         const baseUrl = `${req.protocol}://${req.get('host')}`;
-         updateData.images = imageFiles.map(file => `${baseUrl}/uploads/${file.filename}`);
+         updateData.images = imageFiles.map(file => {
+             const base64 = file.buffer.toString('base64');
+             return `data:${file.mimetype};base64,${base64}`;
+         });
      }
 
      const product = await Product.findByIdAndUpdate(req.params.id, updateData, { new: true, runValidators: true });
