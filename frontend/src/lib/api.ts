@@ -15,14 +15,14 @@ export const getBaseUrl = (): string => {
       if (isLocalNetwork(hostname)) {
         base = `http://${hostname}:5000/api`;
       } else {
-        base = "https://pravaahya.com/api";
+        base = "https://backend-rho-brown-23.vercel.app/api";
       }
     } else {
       // Server-side
-      base = process.env.NODE_ENV === "production" ? "https://pravaahya.com/api" : "http://localhost:5000/api";
+      base = process.env.NODE_ENV === "production" ? "https://backend-rho-brown-23.vercel.app/api" : "http://localhost:5000/api";
     }
 
-    if (process.env.NODE_ENV === "production" && base === "https://pravaahya.com/api") {
+    if (process.env.NODE_ENV === "production" && base === "https://backend-rho-brown-23.vercel.app/api") {
       console.error("CRITICAL ERROR: 'NEXT_PUBLIC_API_URL' environment variable is missing in production. Falling back to default URL.");
     }
   }

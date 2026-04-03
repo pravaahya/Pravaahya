@@ -7,7 +7,7 @@ export async function GET(request: Request, context: { params: Promise<{ id: str
   let product: Product | null = null;
   let related: Product[] = [];
   try {
-     const backendRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://pravaahya.com/api"}/products/${id}`, { cache: 'no-store' });
+     const backendRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://backend-rho-brown-23.vercel.app/api"}/products/${id}`, { cache: 'no-store' });
      const backendJson = await backendRes.json();
      if (backendJson.success && backendJson.data) {
         const p = backendJson.data;
@@ -22,7 +22,7 @@ export async function GET(request: Request, context: { params: Promise<{ id: str
             images: p.images
         };
 
-        const relatedRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://pravaahya.com/api"}/products`, { cache: 'no-store' });
+        const relatedRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://backend-rho-brown-23.vercel.app/api"}/products`, { cache: 'no-store' });
         const relatedJson = await relatedRes.json();
         if (relatedJson.success && Array.isArray(relatedJson.data)) {
             related = relatedJson.data

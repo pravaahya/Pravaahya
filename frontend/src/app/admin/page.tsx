@@ -36,7 +36,7 @@ export default function AdminDashboard() {
     }
 
     // Fetch analytical aggregates uniquely mapping to authenticated headers securely
-    fetch("https://pravaahya.com/api/admin/insights", {
+    fetch("https://backend-rho-brown-23.vercel.app/api/admin/insights", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(async (res) => {

@@ -7,7 +7,7 @@ export function LowStockAlert({ token }: { token: string }) {
 
     useEffect(() => {
         if (!token) return;
-        fetch("https://pravaahya.com/api/products/stocks/low", {
+        fetch("https://backend-rho-brown-23.vercel.app/api/products/stocks/low", {
             headers: { Authorization: `Bearer ${token}` }
         })
         .then(res => {

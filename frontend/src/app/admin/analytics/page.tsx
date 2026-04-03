@@ -27,7 +27,7 @@ export default function AdminAnalytics() {
     const token = sessionStorage.getItem("pravaahya_token");
     if (!token) { router.push("/admin/login"); return; }
 
-    fetch("https://pravaahya.com/api/analytics/summary", {
+    fetch("https://backend-rho-brown-23.vercel.app/api/analytics/summary", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(async (res) => {

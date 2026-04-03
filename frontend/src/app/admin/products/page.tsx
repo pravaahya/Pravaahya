@@ -44,7 +44,7 @@ export default function AdminProducts() {
       const token = sessionStorage.getItem("pravaahya_token");
       if (!token) { router.push("/admin/login"); return; }
       
-      const res = await fetch("https://pravaahya.com/api/products", {
+      const res = await fetch("https://backend-rho-brown-23.vercel.app/api/products", {
         headers: { Authorization: `Bearer ${token}` }
       });
       const json = await res.json();
@@ -114,8 +114,8 @@ export default function AdminProducts() {
     try {
       const token = sessionStorage.getItem("pravaahya_token");
       const url = editingId 
-        ? `https://pravaahya.com/api/products/${editingId}`
-        : "https://pravaahya.com/api/products";
+        ? `https://backend-rho-brown-23.vercel.app/api/products/${editingId}`
+        : "https://backend-rho-brown-23.vercel.app/api/products";
       const method = editingId ? "PUT" : "POST";
 
       const payload = new FormData();
@@ -162,7 +162,7 @@ export default function AdminProducts() {
     
     try {
       const token = sessionStorage.getItem("pravaahya_token");
-      const res = await fetch(`https://pravaahya.com/api/products/${id}`, {
+      const res = await fetch(`https://backend-rho-brown-23.vercel.app/api/products/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` }
       });
