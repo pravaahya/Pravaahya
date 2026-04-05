@@ -17,6 +17,7 @@ import {
 } from "chart.js";
 import { Line, Bar } from "react-chartjs-2";
 import { LowStockAlert } from "@/components/admin/LowStockAlert";
+import { getApiUrl } from "@/lib/api";
 
 // Bootstrap Chart configuration strictly preventing dynamic render drops
 ChartJS.register(
@@ -36,7 +37,7 @@ export default function AdminDashboard() {
     }
 
     // Fetch analytical aggregates uniquely mapping to authenticated headers securely
-    fetch("https://backend-rho-brown-23.vercel.app/api/admin/insights", {
+    fetch(getApiUrl("/admin/insights"), {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(async (res) => {

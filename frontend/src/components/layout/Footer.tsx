@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Instagram, Linkedin, Mail, ArrowRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { usePathname } from "next/navigation";
 
 const XIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg 
@@ -18,6 +19,7 @@ const XIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 export function Footer() {
+  const pathname = usePathname();
   const currentYear = new Date().getFullYear();
 
   const footerLinks = {
@@ -38,6 +40,8 @@ export function Footer() {
     { icon: XIcon, href: "https://x.com/pravaahya" },
     { icon: Linkedin, href: "https://www.linkedin.com/company/pravaahya" },
   ];
+
+  if (pathname.startsWith("/admin")) return null;
 
   return (
     <footer className="bg-eco-900 border-t border-eco-800">

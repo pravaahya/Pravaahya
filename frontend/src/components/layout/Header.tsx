@@ -110,6 +110,8 @@ export function Header() {
     }
   }, [isSearchExpanded]);
 
+  if (pathname.startsWith("/admin")) return null;
+
   return (
     <header
       className={cn(

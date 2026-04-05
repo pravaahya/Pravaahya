@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Edit2, Trash2, Plus, X } from "lucide-react";
 import { resolveImage } from "@/lib/image-utils";
+import { getApiUrl } from "@/lib/api";
 
 interface AdminProduct {
   _id: string;
@@ -44,7 +45,7 @@ export default function AdminProducts() {
       const token = sessionStorage.getItem("pravaahya_token");
       if (!token) { router.push("/admin/login"); return; }
       
-      const res = await fetch("https://backend-rho-brown-23.vercel.app/api/products", {
+      const res = await fetch(getApiUrl("/products"), {
         headers: { Authorization: `Bearer ${token}` }
       });
       const json = await res.json();
@@ -114,8 +115,8 @@ export default function AdminProducts() {
     try {
       const token = sessionStorage.getItem("pravaahya_token");
       const url = editingId 
-        ? `https://backend-rho-brown-23.vercel.app/api/products/${editingId}`
-        : "https://backend-rho-brown-23.vercel.app/api/products";
+        ? getApiUrl(`/products/${editingId}`)
+        : getApiUrl("/products");
       const method = editingId ? "PUT" : "POST";
 
       const payload = new FormData();
@@ -162,7 +163,7 @@ export default function AdminProducts() {
     
     try {
       const token = sessionStorage.getItem("pravaahya_token");
-      const res = await fetch(`https://backend-rho-brown-23.vercel.app/api/products/${id}`, {
+      const res = await fetch(getApiUrl(`/products/${id}`), {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -262,12 +263,7 @@ export default function AdminProducts() {
               </div>
               
               <form onSubmit={handleSubmit} className="p-6 md:p-8 overflow-y-auto flex-1 space-y-6">
-                 {formError && (
-                    <div className="bg-red-50 text-red-700 p-4 rounded-xl text-sm font-bold shadow-sm border border-red-100 flex items-center gap-3">
-                       <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
-                       {formError}
-                    </div>
-                 )}
+
                  <div>
                     <label className="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2 ml-1">Product Name</label>
                     <input autoFocus type="text" required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-5 py-3.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-green-500 focus:bg-white transition-all shadow-inner" />
@@ -310,7 +306,7 @@ export default function AdminProducts() {
                  </div>
                  <div>
                     <label className="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2 ml-1">Product Images (Multi-select)</label>
-                    <input type="file" multiple accept="image/*" onChange={e => setImagesData(e.target.files)} className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-5 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-green-500 focus:bg-white transition-all shadow-inner file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-green-50 file:text-green-700 hover:file:bg-green-100" />
+                    <input type="file" multiple required={!editingId} accept="image/*" onChange={e => setImagesData(e.target.files)} className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-5 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-green-500 focus:bg-white transition-all shadow-inner file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-green-50 file:text-green-700 hover:file:bg-green-100" />
                     {editingId && <p className="text-[10px] text-gray-400 mt-1 ml-2 italic">Leave empty to retain existing images.</p>}
                  </div>
                  <div>
@@ -326,6 +322,12 @@ export default function AdminProducts() {
                  </div>
 
                  <div className="pt-6">
+                     {formError && (
+                        <div className="mb-4 bg-red-50 text-red-700 p-4 rounded-xl text-sm font-bold shadow-sm border border-red-100 flex items-center gap-3">
+                           <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                           {formError}
+                        </div>
+                     )}
                      <button type="submit" className="w-full border border-green-700 bg-green-600 hover:bg-green-700 text-white rounded-2xl py-4 font-black text-sm uppercase tracking-wider shadow-lg transition-all active:scale-[0.98]">
                         {editingId ? "Save Changes" : "Create Product"}
                      </button>

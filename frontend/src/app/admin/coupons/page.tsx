@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Edit2, Trash2, Plus, X, Tag, ShieldCheck, ShieldAlert } from "lucide-react";
+import { getApiUrl } from "@/lib/api";
 
 interface AdminCoupon {
   _id: string;
@@ -35,7 +36,7 @@ export default function AdminCoupons() {
       const token = sessionStorage.getItem("pravaahya_token");
       if (!token) { router.push("/admin/login"); return; }
       
-      const res = await fetch("https://backend-rho-brown-23.vercel.app/api/coupons", {
+      const res = await fetch(getApiUrl("/coupons"), {
         headers: { Authorization: `Bearer ${token}` }
       });
       const json = await res.json();
@@ -94,8 +95,8 @@ export default function AdminCoupons() {
     try {
       const token = sessionStorage.getItem("pravaahya_token");
       const url = editingId 
-        ? `https://backend-rho-brown-23.vercel.app/api/coupons/${editingId}`
-        : "https://backend-rho-brown-23.vercel.app/api/coupons";
+        ? getApiUrl(`/coupons/${editingId}`)
+        : getApiUrl("/coupons");
       const method = editingId ? "PUT" : "POST";
 
       const res = await fetch(url, {
@@ -122,7 +123,7 @@ export default function AdminCoupons() {
     
     try {
       const token = sessionStorage.getItem("pravaahya_token");
-      const res = await fetch(`https://backend-rho-brown-23.vercel.app/api/coupons/${id}`, {
+      const res = await fetch(getApiUrl(`/coupons/${id}`), {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` }
       });

@@ -15,6 +15,7 @@ import {
   Filler
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import { getApiUrl } from "@/lib/api";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend, Filler);
 
@@ -27,7 +28,7 @@ export default function AdminAnalytics() {
     const token = sessionStorage.getItem("pravaahya_token");
     if (!token) { router.push("/admin/login"); return; }
 
-    fetch("https://backend-rho-brown-23.vercel.app/api/analytics/summary", {
+    fetch(getApiUrl("/analytics/summary"), {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(async (res) => {

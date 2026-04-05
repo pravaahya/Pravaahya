@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Product } from "@/types/product";
 import { resolveImage } from "@/lib/image-utils";
+import { getApiUrl } from "@/lib/api";
 
 interface Collection {
   _id: string;
@@ -38,8 +39,8 @@ export default function AdminCollections() {
       if (!token) { router.push("/admin/login"); return; }
       
       const [colRes, prodRes] = await Promise.all([
-         fetch("https://backend-rho-brown-23.vercel.app/api/collections", { headers: { Authorization: `Bearer ${token}` } }),
-         fetch("https://backend-rho-brown-23.vercel.app/api/products", { headers: { Authorization: `Bearer ${token}` } })
+         fetch(getApiUrl("/collections"), { headers: { Authorization: `Bearer ${token}` } }),
+         fetch(getApiUrl("/products"), { headers: { Authorization: `Bearer ${token}` } })
       ]);
       
       const colJson = await colRes.json();
@@ -98,8 +99,8 @@ export default function AdminCollections() {
     try {
       const token = sessionStorage.getItem("pravaahya_token");
       const url = editingId 
-        ? `https://backend-rho-brown-23.vercel.app/api/collections/${editingId}`
-        : "https://backend-rho-brown-23.vercel.app/api/collections";
+        ? getApiUrl(`/collections/${editingId}`)
+        : getApiUrl("/collections");
       const method = editingId ? "PUT" : "POST";
 
       const payload = new FormData();
@@ -130,7 +131,7 @@ export default function AdminCollections() {
     if (!window.confirm("Are you sure you want to delete this collection? This action cannot be undone.")) return;
     try {
       const token = sessionStorage.getItem("pravaahya_token");
-      const res = await fetch(`https://backend-rho-brown-23.vercel.app/api/collections/${id}`, {
+      const res = await fetch(getApiUrl(`/collections/${id}`), {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -211,12 +212,7 @@ export default function AdminCollections() {
                </div>
                
                <div className="w-full md:w-2/3 p-8 md:p-10 flex-col flex overflow-y-auto">
-                 {formError && (
-                   <div className="mb-6 p-4 rounded-2xl bg-red-50 text-red-600 border border-red-100">
-                      <p className="text-xs font-bold uppercase tracking-widest mb-1 text-red-400">Structural Exception Detected</p>
-                      <p className="text-sm font-medium">{formError}</p>
-                   </div>
-                 )}
+
                  <form onSubmit={handleSubmit} className="flex-1 flex flex-col gap-6">
                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                        <div>
@@ -259,6 +255,12 @@ export default function AdminCollections() {
                         </div>
                      </div>
 
+                     {formError && (
+                       <div className="mb-4 p-4 rounded-2xl bg-red-50 text-red-600 border border-red-100">
+                          <p className="text-xs font-bold uppercase tracking-widest mb-1 text-red-400">Structural Exception Detected</p>
+                          <p className="text-sm font-medium">{formError}</p>
+                       </div>
+                     )}
                      <div className="flex gap-4 mt-auto pt-6 justify-end">
                        <Button type="button" variant="ghost" onClick={() => setIsModalOpen(false)} className="rounded-full px-8 text-sm font-bold hover:bg-gray-100">Cancel</Button>
                        <Button type="submit" className="rounded-full px-10 text-sm font-bold bg-green-600 hover:bg-green-700 shadow-md shadow-green-600/20">{editingId ? 'Save Changes' : 'Create Collection'}</Button>

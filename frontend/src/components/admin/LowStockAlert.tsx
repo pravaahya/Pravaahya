@@ -1,13 +1,14 @@
 "use client";
 import { AlertCircle } from "lucide-react";
 import { useState, useEffect } from "react";
+import { getApiUrl } from "@/lib/api";
 
 export function LowStockAlert({ token }: { token: string }) {
     const [alerts, setAlerts] = useState<any[]>([]);
 
     useEffect(() => {
         if (!token) return;
-        fetch("https://backend-rho-brown-23.vercel.app/api/products/stocks/low", {
+        fetch(getApiUrl("/products/stocks/low"), {
             headers: { Authorization: `Bearer ${token}` }
         })
         .then(res => {
