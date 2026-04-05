@@ -23,7 +23,7 @@ export const getBaseUrl = (): string => {
     }
 
     if (process.env.NODE_ENV === "production" && base === "https://backend-rho-brown-23.vercel.app/api") {
-      console.error("CRITICAL ERROR: 'NEXT_PUBLIC_API_URL' environment variable is missing in production. Falling back to default URL.");
+      console.warn("[Pravaahya] 'NEXT_PUBLIC_API_URL' missing. Falling back to default production URL.");
     }
   }
 

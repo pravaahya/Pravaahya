@@ -8,14 +8,27 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const dns_1 = __importDefault(require("dns"));
 // Fix Windows DNS resolution issue for Atlas +srv connection strings by injecting global resolvers
 dns_1.default.setServers(['8.8.8.8', '8.8.4.4']);
+let cachedConn = null;
 const connectDB = async () => {
+    if (cachedConn) {
+        return cachedConn;
+    }
+    if (mongoose_1.default.connection.readyState === 1) {
+        cachedConn = mongoose_1.default;
+        return mongoose_1.default;
+    }
     try {
         const uri = process.env.MONGODB_URI;
         if (!uri) {
             throw new Error("MONGODB_URI is not defined in the environment variables.");
         }
-        const conn = await mongoose_1.default.connect(uri);
+        // Using simple options compatible with mongoose v6+ / v7+
+        const conn = await mongoose_1.default.connect(uri, {
+            serverSelectionTimeoutMS: 5000,
+        });
+        cachedConn = conn;
         console.log(`MongoDB Connected: ${conn.connection.host}`);
+        return conn;
     }
     catch (error) {
         console.error(`Warning: MongoDB connection failed natively -> ${error.message}`);

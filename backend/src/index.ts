@@ -27,7 +27,14 @@ app.use(express.json());
 // Serve static dynamic product imagery structurally tracking local disks
 app.use('/uploads', express.static(path.join(__dirname, '../public/uploads')));
 
-app.use('/api', trackVisit, routes);
+app.use('/api', async (req, res, next) => {
+  try {
+    await connectDB();
+  } catch (err) {
+    console.error("Database connection failure prior to route access:", err);
+  }
+  next();
+}, trackVisit, routes);
 
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'OK', timestamp: new Date() });

@@ -20,8 +20,10 @@ const createProduct = async (req, res) => {
         const imageFiles = req.files;
         let images = [];
         if (imageFiles && imageFiles.length > 0) {
-            const baseUrl = `${req.protocol}://${req.get('host')}`;
-            images = imageFiles.map(file => `${baseUrl}/uploads/${file.filename}`);
+            images = imageFiles.map(file => {
+                const base64 = file.buffer.toString('base64');
+                return `data:${file.mimetype};base64,${base64}`;
+            });
         }
         if (images.length === 0) {
             res.status(400).json({ error: "Validation Error: Minimum 1 image product binary unconditionally required." });
@@ -93,8 +95,10 @@ const updateProduct = async (req, res) => {
         }
         const imageFiles = req.files;
         if (imageFiles && imageFiles.length > 0) {
-            const baseUrl = `${req.protocol}://${req.get('host')}`;
-            updateData.images = imageFiles.map(file => `${baseUrl}/uploads/${file.filename}`);
+            updateData.images = imageFiles.map(file => {
+                const base64 = file.buffer.toString('base64');
+                return `data:${file.mimetype};base64,${base64}`;
+            });
         }
         const product = await product_model_1.default.findByIdAndUpdate(req.params.id, updateData, { new: true, runValidators: true });
         if (!product) {
